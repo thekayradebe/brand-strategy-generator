@@ -1,0 +1,1484 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Premium Brand Strategy Generator — SMM Portfolio Challenge</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Bebas+Neue&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+  <style>
+    /* ─── Variables ─────────────────────────────────────── */
+    :root {
+      --black:      #0A0A0A;
+      --dark:       #141414;
+      --dark-mid:   #1E1E1E;
+      --dark-card:  #1A1A1A;
+      --gray:       #888888;
+      --gray-light: #AAAAAA;
+      --gray-faint: #555555;
+      --lime:       #D4FF00;
+      --lime-soft:  #E8FF80;
+      --lime-dim:   rgba(212,255,0,.08);
+      --lime-glow:  rgba(212,255,0,.15);
+      --white:      #FFFFFF;
+      --off:        #F5F5E8;
+      --line:       rgba(255,255,255,.06);
+    }
+
+    /* ─── Reset ─────────────────────────────────────────── */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: 'Inter', sans-serif;
+      background: var(--black);
+      color: var(--white);
+      line-height: 1.7;
+      font-size: 15px;
+      -webkit-font-smoothing: antialiased;
+      min-height: 100vh;
+    }
+
+    /* ─── Hero ──────────────────────────────────────────── */
+    .hero {
+      background: var(--black);
+      padding: 72px 24px 56px;
+      position: relative;
+      overflow: hidden;
+      text-align: center;
+    }
+    .hero-glow {
+      position: absolute; top: 50%; left: 50%;
+      transform: translate(-50%, -50%);
+      width: 500px; height: 500px; border-radius: 50%;
+      background: radial-gradient(circle, var(--lime-glow), transparent 65%);
+      pointer-events: none;
+    }
+    .hero-inner { position: relative; z-index: 1; max-width: 720px; margin: 0 auto; }
+    .hero-badge {
+      display: inline-block;
+      font-family: 'Space Mono', monospace;
+      font-size: 10px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase;
+      color: var(--black); background: var(--lime);
+      padding: 8px 20px; border-radius: 30px; margin-bottom: 24px;
+    }
+    .hero-title {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: clamp(48px, 8vw, 88px);
+      text-transform: uppercase; letter-spacing: 2px; line-height: .92;
+      color: var(--white); margin-bottom: 18px;
+    }
+    .hero-title em { color: var(--lime); font-style: normal; }
+    .hero-sub {
+      font-size: 14px; color: var(--gray); line-height: 1.75;
+      max-width: 500px; margin: 0 auto 28px;
+    }
+    .hero-meta { display: flex; flex-wrap: wrap; gap: 8px; justify-content: center; }
+    .meta-tag {
+      font-family: 'Space Mono', monospace;
+      font-size: 9px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase;
+      color: var(--gray-faint); background: var(--dark-card);
+      padding: 7px 12px; border-radius: 4px;
+    }
+    .meta-tag span { color: var(--lime); }
+
+    /* ─── Tab Nav ───────────────────────────────────────── */
+    .tabs-wrapper {
+      position: sticky; top: 0; z-index: 100;
+      background: var(--dark); border-bottom: 1px solid var(--line);
+    }
+    .tabs-nav {
+      display: flex; overflow-x: auto; scrollbar-width: none;
+      max-width: 900px; margin: 0 auto;
+    }
+    .tabs-nav::-webkit-scrollbar { display: none; }
+    .tab-btn {
+      flex-shrink: 0;
+      font-family: 'Space Mono', monospace;
+      font-size: 9px; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase;
+      color: var(--gray-faint); background: transparent; border: none;
+      padding: 16px 18px; cursor: pointer;
+      border-bottom: 2px solid transparent;
+      transition: color 0.2s, border-color 0.2s;
+      white-space: nowrap;
+    }
+    .tab-btn:hover { color: var(--gray-light); }
+    .tab-btn.active { color: var(--lime); border-bottom-color: var(--lime); }
+    .tab-num { display: inline-block; margin-right: 5px; transition: color 0.2s; }
+    .tab-btn.active .tab-num { color: var(--lime); }
+
+    /* ─── Tab Panels ────────────────────────────────────── */
+    .tab-panels { min-height: calc(100vh - 200px); }
+    .tab-panel { display: none; }
+    .tab-panel.active { display: block; }
+
+    /* ─── Panel Body ────────────────────────────────────── */
+    .panel-body { max-width: 720px; margin: 0 auto; padding: 56px 24px 32px; }
+    .panel-bg-dark  { background: var(--dark); }
+    .panel-bg-black { background: var(--black); }
+    .panel-bg-lime  { background: var(--lime); }
+
+    /* ─── Section Header ────────────────────────────────── */
+    .section-num {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 64px; color: var(--lime);
+      line-height: 1; display: block; margin-bottom: -6px;
+    }
+    .section-num.dark-num { color: rgba(0,0,0,.2); }
+    .section-title {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: clamp(30px, 5vw, 48px); text-transform: uppercase;
+      letter-spacing: 1px; color: var(--white); margin-bottom: 24px; line-height: 1;
+    }
+    .section-title.dark-text { color: var(--black); }
+
+    /* ─── Body Text ─────────────────────────────────────── */
+    .body-text { font-size: 15px; color: var(--gray); line-height: 1.8; margin-bottom: 16px; }
+    .body-text strong { color: var(--gray-light); font-weight: 600; }
+
+    /* ─── Steps List ────────────────────────────────────── */
+    .steps-list { list-style: none; margin-top: 20px; border-top: 1px solid var(--line); }
+    .steps-list li {
+      display: flex; align-items: flex-start; gap: 16px;
+      padding: 16px 0; border-bottom: 1px solid var(--line);
+    }
+    .step-num-small {
+      font-family: 'Bebas Neue', sans-serif; font-size: 22px;
+      color: var(--lime); flex-shrink: 0; width: 26px; line-height: 1.15;
+    }
+    .step-text { font-size: 14px; color: var(--gray-light); line-height: 1.7; padding-top: 1px; }
+
+    /* ─── Intro Note ────────────────────────────────────── */
+    .intro-note {
+      background: var(--lime-dim); border-left: 2px solid var(--lime);
+      padding: 14px 18px; margin-top: 20px;
+      font-size: 13px; color: var(--gray-light); line-height: 1.7;
+    }
+
+    /* ─── Form Fields ───────────────────────────────────── */
+    .form-stack { display: flex; flex-direction: column; gap: 2px; margin-top: 28px; }
+    .form-field { background: var(--dark-card); padding: 18px 20px 16px; transition: background 0.2s; }
+    .form-field:focus-within { background: var(--dark-mid); }
+    .field-label {
+      font-family: 'Space Mono', monospace;
+      font-size: 9px; font-weight: 700; letter-spacing: 2.5px; text-transform: uppercase;
+      color: var(--lime); display: block; margin-bottom: 6px;
+    }
+    .field-hint { font-size: 12px; color: var(--gray-faint); line-height: 1.5; margin-bottom: 10px; display: block; }
+    .field-input {
+      width: 100%; background: transparent; border: none;
+      border-bottom: 1px solid rgba(255,255,255,.1);
+      color: var(--white); font-family: 'Inter', sans-serif;
+      font-size: 14px; line-height: 1.6; padding: 6px 0 8px;
+      outline: none; resize: none; transition: border-color 0.2s;
+    }
+    .field-input::placeholder { color: var(--gray-faint); }
+    .field-input:focus { border-bottom-color: var(--lime); }
+    .field-optional {
+      font-family: 'Space Mono', monospace;
+      font-size: 8px; font-weight: 700; letter-spacing: 1px; text-transform: uppercase;
+      color: var(--gray-faint); background: rgba(255,255,255,.06);
+      padding: 3px 8px; border-radius: 2px; margin-left: 8px; vertical-align: middle;
+    }
+
+    /* ─── Industry Chips ────────────────────────────────── */
+    .industry-chips {
+      display: grid; grid-template-columns: 1fr 1fr; gap: 6px; margin-top: 4px;
+    }
+    .industry-chip {
+      font-family: 'Inter', sans-serif;
+      font-size: 12px; font-weight: 600; text-align: left;
+      color: var(--gray-light); background: rgba(255,255,255,.04);
+      border: 1px solid rgba(255,255,255,.08);
+      padding: 10px 14px; cursor: pointer;
+      transition: all 0.2s; user-select: none; border-radius: 2px;
+    }
+    .industry-chip:hover { border-color: rgba(212,255,0,.4); color: var(--white); }
+    .industry-chip.selected {
+      background: var(--lime-dim); border-color: var(--lime); color: var(--lime);
+    }
+    .industry-other-wrap {
+      margin-top: 8px; display: none;
+    }
+    .industry-other-wrap.visible { display: block; }
+
+    /* ─── Tone Chips ────────────────────────────────────── */
+    .tone-chips { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 4px; }
+    .tone-chip {
+      font-family: 'Space Mono', monospace;
+      font-size: 9px; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase;
+      color: var(--gray-light); background: transparent;
+      border: 1px solid rgba(255,255,255,.12);
+      padding: 8px 14px; border-radius: 3px; cursor: pointer;
+      transition: all 0.2s; user-select: none;
+    }
+    .tone-chip:hover { border-color: var(--lime); color: var(--lime); }
+    .tone-chip.selected { background: var(--lime); color: var(--black); border-color: var(--lime); }
+    .tone-hint {
+      font-family: 'Space Mono', monospace;
+      font-size: 9px; color: var(--gray-faint); letter-spacing: 1px;
+      margin-top: 10px; display: block;
+    }
+
+    /* ─── Platform Picker ───────────────────────────────── */
+    .platform-options { display: grid; grid-template-columns: 1fr 1fr; gap: 2px; margin-top: 4px; }
+    .platform-opt {
+      font-family: 'Inter', sans-serif;
+      font-size: 13px; font-weight: 600;
+      color: var(--gray-light); background: rgba(255,255,255,.04);
+      border: 1px solid rgba(255,255,255,.08);
+      padding: 12px 16px; cursor: pointer; text-align: left;
+      transition: all 0.2s; border-radius: 2px;
+    }
+    .platform-opt:hover { background: rgba(255,255,255,.08); color: var(--white); }
+    .platform-opt.selected { background: var(--lime-dim); border-color: var(--lime); color: var(--lime); }
+    .plat-icon { margin-right: 8px; }
+
+    /* ─── Generate CTA ──────────────────────────────────── */
+    .generate-cta {
+      margin-top: 32px;
+      padding: 24px 20px;
+      background: var(--lime-dim); border-top: 1px solid rgba(212,255,0,.15);
+      text-align: center;
+    }
+    .generate-cta p { font-size: 13px; color: var(--gray); margin-bottom: 16px; line-height: 1.7; }
+
+    /* ─── Prompt Box ────────────────────────────────────── */
+    .prompt-header {
+      display: flex; align-items: center; justify-content: space-between;
+      gap: 12px; margin-bottom: 14px; flex-wrap: wrap;
+    }
+    .prompt-header-left { display: flex; align-items: center; gap: 10px; }
+    .prompt-badge {
+      font-family: 'Space Mono', monospace;
+      font-size: 9px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase;
+      color: var(--black); background: var(--lime);
+      padding: 5px 12px; border-radius: 20px;
+    }
+    .prompt-title-text {
+      font-family: 'Inter', sans-serif;
+      font-size: 11px; font-weight: 700; letter-spacing: 1px; text-transform: uppercase;
+      color: var(--gray-light);
+    }
+    .copy-btn {
+      font-family: 'Space Mono', monospace;
+      font-size: 9px; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase;
+      color: var(--black); background: var(--lime);
+      border: none; padding: 9px 18px; border-radius: 3px;
+      cursor: pointer; transition: background 0.2s, transform 0.15s; flex-shrink: 0;
+    }
+    .copy-btn:hover { background: var(--lime-soft); transform: translateY(-1px); }
+    .prompt-box {
+      background: var(--dark-card); border-left: 2px solid var(--lime);
+      padding: 24px 24px 20px 22px; margin-bottom: 28px;
+    }
+    .prompt-text {
+      font-family: 'Inter', sans-serif; font-size: 13.5px;
+      color: var(--gray-light); line-height: 1.85;
+      white-space: pre-wrap; word-break: break-word;
+    }
+    .prompt-footer-note {
+      font-family: 'Space Mono', monospace; font-size: 9px;
+      letter-spacing: 1.5px; text-transform: uppercase;
+      color: var(--gray-faint); margin-top: 14px; display: block;
+    }
+
+    /* ─── Prompt Warning ────────────────────────────────── */
+    .prompt-warning {
+      background: rgba(212,255,0,.06); border-left: 2px solid var(--lime);
+      padding: 14px 18px; margin-bottom: 20px;
+      font-size: 13px; color: var(--gray-light); line-height: 1.7; display: none;
+    }
+    .prompt-warning.visible { display: block; }
+    .prompt-warning strong { color: var(--lime); }
+
+    /* ─── After-Prompt Callout ──────────────────────────── */
+    .after-prompt {
+      background: var(--dark-card); border-top: 2px solid var(--lime);
+      padding: 20px 22px; margin-top: 4px;
+    }
+    .after-prompt-label {
+      font-family: 'Space Mono', monospace;
+      font-size: 9px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase;
+      color: var(--lime); display: block; margin-bottom: 12px;
+    }
+    .after-prompt ol { list-style: none; padding: 0; }
+    .after-prompt ol li {
+      display: flex; align-items: flex-start; gap: 12px;
+      font-size: 13px; color: var(--gray-light); line-height: 1.7;
+      padding: 8px 0; border-bottom: 1px solid var(--line);
+    }
+    .after-prompt ol li:last-child { border-bottom: none; }
+    .after-step-num {
+      font-family: 'Bebas Neue', sans-serif; font-size: 20px;
+      color: var(--lime); flex-shrink: 0; width: 22px; line-height: 1.2;
+    }
+    .doc-name {
+      font-family: 'Space Mono', monospace; font-size: 11px;
+      color: var(--lime); background: rgba(212,255,0,.1);
+      padding: 2px 8px; border-radius: 2px; display: inline-block; margin-top: 2px;
+    }
+
+    /* ─── Instruction Steps (Tab 4) ─────────────────────── */
+    .instruction-steps { margin-top: 32px; display: flex; flex-direction: column; gap: 2px; }
+    .instr-step { background: var(--dark-card); padding: 24px 24px 20px; }
+    .instr-step-header { display: flex; align-items: center; gap: 14px; margin-bottom: 16px; }
+    .instr-num {
+      font-family: 'Bebas Neue', sans-serif; font-size: 48px;
+      color: var(--lime); line-height: 1; flex-shrink: 0;
+    }
+    .instr-title {
+      font-family: 'Inter', sans-serif;
+      font-size: 13px; font-weight: 800; letter-spacing: 1px; text-transform: uppercase;
+      color: var(--white);
+    }
+    .instr-body { font-size: 13.5px; color: var(--gray-light); line-height: 1.8; }
+    .instr-body ol, .instr-body ul { padding-left: 18px; margin-top: 10px; }
+    .instr-body ol li, .instr-body ul li { margin-bottom: 8px; }
+    .instr-body strong { color: var(--white); font-weight: 600; }
+    .instr-body .doc-name { margin-left: 2px; }
+    .instr-body a { color: var(--lime); text-decoration: none; }
+    .instr-body a:hover { text-decoration: underline; }
+
+    /* ─── Option Blocks (Tab 5) ─────────────────────────── */
+    .option-blocks { margin-top: 28px; display: flex; flex-direction: column; gap: 2px; }
+    .option-block { background: var(--dark-card); padding: 24px; }
+    .option-header { display: flex; align-items: center; gap: 12px; margin-bottom: 16px; flex-wrap: wrap; }
+    .option-badge {
+      font-family: 'Space Mono', monospace;
+      font-size: 9px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase;
+      padding: 5px 12px; border-radius: 20px;
+    }
+    .option-badge.free { color: var(--black); background: var(--lime); }
+    .option-badge.pro { color: var(--white); background: rgba(255,255,255,.12); border: 1px solid rgba(255,255,255,.2); }
+    .option-title {
+      font-family: 'Inter', sans-serif;
+      font-size: 14px; font-weight: 800; letter-spacing: .5px; text-transform: uppercase;
+      color: var(--white);
+    }
+    .option-body { font-size: 13.5px; color: var(--gray-light); line-height: 1.8; }
+    .option-body strong { color: var(--white); font-weight: 600; }
+    .option-body ul { list-style: none; padding: 0; margin-top: 14px; border-top: 1px solid var(--line); }
+    .option-body ul li {
+      display: flex; align-items: flex-start; gap: 12px;
+      padding: 12px 0; border-bottom: 1px solid var(--line); font-size: 13px;
+    }
+    .option-body ul li:last-child { border-bottom: none; }
+    .li-num {
+      font-family: 'Bebas Neue', sans-serif; font-size: 20px;
+      color: var(--lime); flex-shrink: 0; width: 18px; line-height: 1.2;
+    }
+    .pro-note {
+      background: rgba(255,255,255,.04); border-left: 2px solid rgba(255,255,255,.15);
+      padding: 12px 16px; margin-bottom: 16px;
+      font-size: 13px; color: var(--gray); line-height: 1.7;
+    }
+    .pro-note strong { color: var(--gray-light); }
+    .sub-step-title {
+      font-family: 'Inter', sans-serif;
+      font-size: 11px; font-weight: 800; letter-spacing: 1px; text-transform: uppercase;
+      color: var(--gray-light); margin-top: 20px; margin-bottom: 8px; display: block;
+    }
+    .tip-note {
+      background: var(--lime-dim); border-left: 2px solid rgba(212,255,0,.3);
+      padding: 10px 14px; margin-top: 12px;
+      font-size: 12px; color: var(--gray); line-height: 1.65;
+    }
+
+    /* ─── Checklist ─────────────────────────────────────── */
+    .checklist { list-style: none; margin-top: 8px; border-top: 1px solid var(--line); }
+    .checklist li { border-bottom: 1px solid var(--line); }
+    .checklist label {
+      display: flex; align-items: flex-start; gap: 14px;
+      padding: 16px 0; cursor: pointer; transition: padding-left 0.25s;
+    }
+    .checklist label:hover { padding-left: 6px; }
+    .checklist input[type="checkbox"] {
+      appearance: none; -webkit-appearance: none;
+      width: 20px; height: 20px; flex-shrink: 0;
+      border: 2px solid var(--gray-faint); background: transparent;
+      cursor: pointer; position: relative; margin-top: 1px;
+      transition: border-color 0.2s, background 0.2s; border-radius: 2px;
+    }
+    .checklist input[type="checkbox"]:checked { background: var(--lime); border-color: var(--lime); }
+    .checklist input[type="checkbox"]:checked::after {
+      content: ''; position: absolute;
+      top: 2px; left: 5px; width: 5px; height: 9px;
+      border: 2px solid var(--black); border-top: none; border-left: none;
+      transform: rotate(45deg);
+    }
+    .check-text {
+      font-size: 14px; color: var(--gray-light); line-height: 1.65; padding-top: 1px;
+      transition: color 0.2s;
+    }
+    .checklist input[type="checkbox"]:checked + .check-text {
+      color: var(--gray-faint);
+      text-decoration: line-through; text-decoration-color: var(--gray-faint);
+    }
+
+    /* ─── Deliverable ───────────────────────────────────── */
+    .deliverable-label {
+      font-family: 'Space Mono', monospace; font-size: 10px;
+      font-weight: 700; letter-spacing: 3px; text-transform: uppercase;
+      color: rgba(0,0,0,.45); display: block; margin-bottom: 14px;
+    }
+    .deliverable-title {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: clamp(36px, 6vw, 60px); text-transform: uppercase;
+      letter-spacing: 1px; color: var(--black); line-height: .95; margin-bottom: 28px;
+    }
+    .deliverable-checklist { list-style: none; border-top: 2px solid rgba(0,0,0,.1); margin-bottom: 32px; }
+    .deliverable-checklist li {
+      display: flex; align-items: center; gap: 12px;
+      padding: 14px 0; border-bottom: 1px solid rgba(0,0,0,.08);
+      font-size: 14px; color: var(--black); font-weight: 500;
+    }
+    .check-icon {
+      width: 20px; height: 20px; border-radius: 50%;
+      background: var(--black); display: flex; align-items: center;
+      justify-content: center; flex-shrink: 0;
+    }
+    .check-icon::after {
+      content: ''; width: 4px; height: 8px;
+      border: 2px solid var(--lime); border-top: none; border-left: none;
+      transform: rotate(45deg); margin-top: -2px;
+    }
+    .deliverable-save { background: var(--black); padding: 18px 22px; margin-bottom: 22px; }
+    .save-label {
+      font-family: 'Space Mono', monospace; font-size: 9px; font-weight: 700;
+      letter-spacing: 2px; text-transform: uppercase; color: var(--lime);
+      display: block; margin-bottom: 4px;
+    }
+    .save-filename { font-family: 'Space Mono', monospace; font-size: 13px; color: var(--white); }
+    .deliverable-next { font-size: 14px; color: rgba(0,0,0,.5); line-height: 1.75; }
+    .deliverable-next strong { color: var(--black); }
+
+    /* ─── Tab Footer ────────────────────────────────────── */
+    .tab-footer {
+      max-width: 720px; margin: 0 auto;
+      padding: 20px 24px 48px;
+      display: flex; justify-content: space-between; align-items: center; gap: 12px;
+    }
+    .tab-footer.dark-footer { background: var(--dark); }
+    .tab-footer.black-footer { background: var(--black); }
+    .tab-footer.lime-footer { background: var(--lime); }
+    .nav-btn {
+      font-family: 'Inter', sans-serif; font-size: 12px; font-weight: 700;
+      letter-spacing: 1.5px; text-transform: uppercase;
+      padding: 13px 26px; border-radius: 50px; border: none; cursor: pointer;
+      transition: all 0.2s;
+    }
+    .nav-btn-primary { background: var(--lime); color: var(--black); }
+    .nav-btn-primary:hover { background: var(--lime-soft); transform: translateY(-2px); }
+    .nav-btn-secondary { background: transparent; color: var(--gray-faint); border: 1px solid rgba(255,255,255,.1); }
+    .nav-btn-secondary:hover { color: var(--gray-light); border-color: rgba(255,255,255,.2); }
+    .nav-btn-dark-primary { background: var(--black); color: var(--lime); }
+    .nav-btn-dark-primary:hover { background: var(--dark-mid); transform: translateY(-2px); }
+    .nav-btn-dark-secondary { background: transparent; color: rgba(0,0,0,.4); border: 1px solid rgba(0,0,0,.15); }
+    .nav-btn-dark-secondary:hover { color: rgba(0,0,0,.7); }
+    .step-indicator {
+      font-family: 'Space Mono', monospace; font-size: 9px;
+      letter-spacing: 1.5px; text-transform: uppercase; color: var(--gray-faint);
+    }
+    .step-indicator.dark-indicator { color: rgba(0,0,0,.4); }
+
+    /* ─── Wrap-Up Checkboxes (lime bg) ─────────────────── */
+    .wrap-checklist { list-style: none; border-top: 2px solid rgba(0,0,0,.1); margin-bottom: 24px; }
+    .wrap-checklist li { border-bottom: 1px solid rgba(0,0,0,.08); }
+    .wrap-checklist label {
+      display: flex; align-items: flex-start; gap: 14px;
+      padding: 16px 0; cursor: pointer; transition: padding-left 0.25s;
+    }
+    .wrap-checklist label:hover { padding-left: 6px; }
+    .wrap-checklist input[type="checkbox"] {
+      appearance: none; -webkit-appearance: none;
+      width: 20px; height: 20px; flex-shrink: 0;
+      border: 2px solid rgba(0,0,0,.3); background: transparent;
+      cursor: pointer; position: relative; margin-top: 2px;
+      border-radius: 2px; transition: all 0.2s;
+    }
+    .wrap-checklist input[type="checkbox"]:checked { background: var(--black); border-color: var(--black); }
+    .wrap-checklist input[type="checkbox"]:checked::after {
+      content: ''; position: absolute;
+      top: 2px; left: 5px; width: 5px; height: 9px;
+      border: 2px solid var(--lime); border-top: none; border-left: none;
+      transform: rotate(45deg);
+    }
+    .wrap-check-text {
+      font-size: 14px; color: var(--black); font-weight: 500;
+      line-height: 1.65; padding-top: 1px; transition: opacity 0.2s;
+    }
+    .wrap-checklist input[type="checkbox"]:checked + .wrap-check-text {
+      opacity: 0.35; text-decoration: line-through; text-decoration-color: rgba(0,0,0,.3);
+    }
+    .save-filename-inline {
+      font-family: 'Space Mono', monospace; font-size: 11px;
+      background: rgba(0,0,0,.12); padding: 2px 7px; border-radius: 2px;
+      display: inline-block; margin-top: 2px;
+    }
+
+    /* ─── Celebration Box ───────────────────────────────── */
+    .celebration {
+      display: none;
+      background: var(--black);
+      padding: 36px 28px 32px;
+      margin: 28px 0 8px;
+      position: relative; overflow: hidden;
+      animation: celebIn 0.5s cubic-bezier(.22,.68,0,1.2) forwards;
+    }
+    @keyframes celebIn {
+      from { opacity: 0; transform: translateY(16px) scale(.97); }
+      to   { opacity: 1; transform: translateY(0) scale(1); }
+    }
+    .confetti-container {
+      position: absolute; top: 0; left: 0;
+      width: 100%; height: 100%; pointer-events: none; overflow: hidden;
+    }
+    .confetti-piece {
+      position: absolute; top: -12px;
+      animation: confettiFall linear forwards;
+    }
+    @keyframes confettiFall {
+      0%   { transform: translateY(0) rotate(0deg); opacity: 1; }
+      80%  { opacity: 1; }
+      100% { transform: translateY(110vh) rotate(720deg); opacity: 0; }
+    }
+    .celebration-inner { position: relative; z-index: 1; }
+
+    /* ─── Prompt Reveal Toggle ──────────────────────────── */
+    .prompt-reveal-btn {
+      width: 100%; margin-bottom: 2px;
+      font-family: 'Space Mono', monospace;
+      font-size: 9px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase;
+      color: var(--lime); background: var(--lime-dim);
+      border: 1px solid rgba(212,255,0,.18); border-top: none;
+      padding: 14px; cursor: pointer; text-align: center;
+      transition: background 0.2s;
+    }
+    .prompt-reveal-btn:hover { background: rgba(212,255,0,.14); }
+    .celebration-title {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: clamp(30px, 5vw, 52px); text-transform: uppercase;
+      letter-spacing: 1px; color: var(--lime);
+      line-height: 1; margin-bottom: 14px;
+    }
+    .celebration-msg {
+      font-size: 14px; color: var(--gray-light); line-height: 1.85;
+    }
+    .celebration-msg strong { color: var(--white); }
+
+    /* ─── Mobile ────────────────────────────────────────── */
+    @media (max-width: 600px) {
+      .hero { padding: 56px 20px 44px; }
+      .panel-body { padding: 40px 20px 28px; }
+      .tab-btn { padding: 14px 12px; font-size: 8px; }
+      .tab-footer { padding: 18px 20px 36px; }
+      .nav-btn { padding: 11px 18px; font-size: 11px; }
+      .industry-chips { grid-template-columns: 1fr; }
+      .platform-options { grid-template-columns: 1fr 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Full-page confetti layer -->
+  <div id="page-confetti" style="position:fixed;top:0;left:0;width:100%;height:100%;pointer-events:none;z-index:9999;overflow:hidden;"></div>
+
+  <!-- ═══════════════════════════════════════════════════ -->
+  <!-- HERO                                                -->
+  <!-- ═══════════════════════════════════════════════════ -->
+  <div class="hero">
+    <div class="hero-glow"></div>
+    <div class="hero-inner">
+      <span class="hero-badge">SMM Portfolio Challenge — Building Block 1 of 3</span>
+      <h1 class="hero-title">Premium<br><em>Brand</em><br>Strategy</h1>
+      <p class="hero-sub">Fill in a few key details about your brand — and watch AI turn them into a complete, professional-grade brand strategy, a visual identity system, and a portfolio-ready deck.</p>
+      <div class="hero-meta">
+        <span class="meta-tag">Prerequisite: <span>None</span></span>
+        <span class="meta-tag">Time: <span>60–90 min</span></span>
+        <span class="meta-tag">Level: <span>Beginner</span></span>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════════════════════════ -->
+  <!-- TAB NAV                                             -->
+  <!-- ═══════════════════════════════════════════════════ -->
+  <div class="tabs-wrapper">
+    <nav class="tabs-nav" role="tablist">
+      <button class="tab-btn active" data-tab="1" role="tab"><span class="tab-num">01</span>Welcome</button>
+      <button class="tab-btn" data-tab="2" role="tab"><span class="tab-num">02</span>Brand Inputs</button>
+      <button class="tab-btn" data-tab="3" role="tab"><span class="tab-num">03</span>Your Prompt</button>
+      <button class="tab-btn" data-tab="4" role="tab"><span class="tab-num">04</span>Build Deck</button>
+      <button class="tab-btn" data-tab="5" role="tab"><span class="tab-num">05</span>Refine</button>
+      <button class="tab-btn" data-tab="6" role="tab"><span class="tab-num">06</span>Wrap Up</button>
+    </nav>
+  </div>
+
+  <div class="tab-panels">
+
+    <!-- ══════════════════════════════════════════════════ -->
+    <!-- TAB 1 — WELCOME                                    -->
+    <!-- ══════════════════════════════════════════════════ -->
+    <div class="tab-panel panel-bg-dark active" id="tab-1">
+      <div class="panel-body">
+        <span class="section-num">01</span>
+        <h2 class="section-title">Welcome &amp; Overview</h2>
+
+        <p class="body-text">Fill in a few key details about your brand — and watch AI turn them into a complete, professional-grade brand strategy, a visual identity system, and a portfolio-ready presentation deck. This is the kind of work that used to take a strategist days. You're about to do it in under two hours.</p>
+      </div>
+      <div class="tab-footer dark-footer">
+        <span class="step-indicator">Step 1 of 6</span>
+        <button class="nav-btn nav-btn-primary" onclick="goToTab(2)">Start &rarr;</button>
+      </div>
+    </div>
+
+    <!-- ══════════════════════════════════════════════════ -->
+    <!-- TAB 2 — BRAND INPUTS                               -->
+    <!-- ══════════════════════════════════════════════════ -->
+    <div class="tab-panel panel-bg-black" id="tab-2">
+      <div class="panel-body">
+        <span class="section-num">02</span>
+        <h2 class="section-title">Brand Inputs</h2>
+
+        <p class="body-text">Fill in every field below. The more specific you are, the better Claude's output will be. If you're using a fictional brand, make it feel real.</p>
+
+        <div class="form-stack">
+
+          <!-- Your Name -->
+          <div class="form-field">
+            <label class="field-label" for="f-your-name">Your Name</label>
+            <span class="field-hint">This will appear on the deck cover as "Social Media Brand Strategy by ..."</span>
+            <input class="field-input" type="text" id="f-your-name" placeholder="e.g. Amara Dlamini" autocomplete="name">
+          </div>
+
+          <!-- Business Name -->
+          <div class="form-field">
+            <label class="field-label" for="f-name">Business Name</label>
+            <span class="field-hint">The name of the brand you're building a strategy for.</span>
+            <input class="field-input" type="text" id="f-name" placeholder="e.g. Bloom & Co." autocomplete="off">
+          </div>
+
+          <!-- Website URL -->
+          <div class="form-field">
+            <label class="field-label" for="f-website">Business Website URL <span class="field-optional">Optional</span></label>
+            <span class="field-hint">If the brand has a website, paste the full URL. Claude will visit it before writing.</span>
+            <input class="field-input" type="url" id="f-website" placeholder="https://www.example.com" autocomplete="off">
+          </div>
+
+          <!-- Industry -->
+          <div class="form-field">
+            <span class="field-label">Industry / Niche</span>
+            <span class="field-hint">Select the one that best fits. If none match, choose Other.</span>
+            <div class="industry-chips">
+              <button type="button" class="industry-chip" data-industry="Beauty &amp; Aesthetics">Beauty &amp; Aesthetics</button>
+              <button type="button" class="industry-chip" data-industry="Health &amp; Wellness">Health &amp; Wellness</button>
+              <button type="button" class="industry-chip" data-industry="Education &amp; Coaching">Education &amp; Coaching</button>
+              <button type="button" class="industry-chip" data-industry="Food &amp; Hospitality">Food &amp; Hospitality</button>
+              <button type="button" class="industry-chip" data-industry="Fitness &amp; Sports">Fitness &amp; Sports</button>
+              <button type="button" class="industry-chip" data-industry="Legal &amp; Finance">Legal &amp; Finance</button>
+              <button type="button" class="industry-chip" data-industry="Real Estate">Real Estate</button>
+              <button type="button" class="industry-chip" data-industry="Retail &amp; E-commerce">Retail &amp; E-commerce</button>
+              <button type="button" class="industry-chip" data-industry="Tech &amp; SaaS">Tech &amp; SaaS</button>
+              <button type="button" class="industry-chip" data-industry="Creative &amp; Entertainment">Creative &amp; Entertainment</button>
+              <button type="button" class="industry-chip" data-industry="other">Other</button>
+            </div>
+            <div class="industry-other-wrap" id="industry-other-wrap">
+              <input class="field-input" type="text" id="f-industry-other" placeholder="Describe your niche..." style="margin-top:10px;">
+            </div>
+          </div>
+
+          <!-- What They Sell -->
+          <div class="form-field">
+            <label class="field-label" for="f-offer">What They Sell</label>
+            <span class="field-hint">Product, service, or offer — be specific.</span>
+            <textarea class="field-input" id="f-offer" rows="2" placeholder="e.g. Natural face serums and moisturisers made from locally sourced botanicals"></textarea>
+          </div>
+
+          <!-- Target Audience -->
+          <div class="form-field">
+            <label class="field-label" for="f-audience">Target Audience</label>
+            <span class="field-hint">Who they help — age range, interests, pain points.</span>
+            <textarea class="field-input" id="f-audience" rows="2" placeholder="e.g. Women 25–40 who care about clean ingredients and don't have time to research every product"></textarea>
+          </div>
+
+          <!-- Before — The Problem -->
+          <div class="form-field">
+            <label class="field-label" for="f-before">Before — The Problem</label>
+            <span class="field-hint">What life looks like before this brand. The frustrations, pain points, struggles, or things customers are unhappy about.</span>
+            <textarea class="field-input" id="f-before" rows="2" placeholder="e.g. Overwhelmed by misleading ingredient lists, wasting money on products that don't work, feel like they can't trust what they're putting on their skin."></textarea>
+          </div>
+
+          <!-- After — The Transformation -->
+          <div class="form-field">
+            <label class="field-label" for="f-after">After — The Transformation</label>
+            <span class="field-hint">What life looks like after. The desired outcome, feeling, result, or solution the brand delivers.</span>
+            <textarea class="field-input" id="f-after" rows="2" placeholder="e.g. Confident in every product they use, feel like someone who actually knows what they're doing with their skincare."></textarea>
+          </div>
+
+          <!-- Tone of Voice -->
+          <div class="form-field">
+            <span class="field-label">Tone of Voice</span>
+            <span class="field-hint">Pick 2–3 that best describe how this brand sounds.</span>
+            <div class="tone-chips">
+              <button type="button" class="tone-chip" data-tone="Professional">Professional</button>
+              <button type="button" class="tone-chip" data-tone="Playful">Playful</button>
+              <button type="button" class="tone-chip" data-tone="Bold">Bold</button>
+              <button type="button" class="tone-chip" data-tone="Warm">Warm</button>
+              <button type="button" class="tone-chip" data-tone="Edgy">Edgy</button>
+              <button type="button" class="tone-chip" data-tone="Minimal">Minimal</button>
+              <button type="button" class="tone-chip" data-tone="Luxurious">Luxurious</button>
+              <button type="button" class="tone-chip" data-tone="Friendly">Friendly</button>
+              <button type="button" class="tone-chip" data-tone="Authoritative">Authoritative</button>
+            </div>
+            <span class="tone-hint" id="tone-hint">Select 2–3 tones above</span>
+          </div>
+
+          <!-- Competitor URLs -->
+          <div class="form-field">
+            <span class="field-label">Competitor Brand URLs</span>
+            <span class="field-hint">Paste the website URLs of 2–3 competitors. Claude will visit each one to research their positioning and content approach.</span>
+            <input class="field-input" type="url" id="f-comp1" placeholder="https://www.competitor-one.com" style="margin-bottom:8px;" autocomplete="off">
+            <input class="field-input" type="url" id="f-comp2" placeholder="https://www.competitor-two.com" style="margin-bottom:8px;" autocomplete="off">
+            <input class="field-input" type="url" id="f-comp3" placeholder="https://www.competitor-three.com (optional)" autocomplete="off">
+          </div>
+
+          <!-- Primary Platform -->
+          <div class="form-field">
+            <span class="field-label">Primary Platform</span>
+            <span class="field-hint">Pick one platform to focus on for this strategy.</span>
+            <div class="platform-options">
+              <button type="button" class="platform-opt" data-platform="Instagram"><span class="plat-icon">📸</span>Instagram</button>
+              <button type="button" class="platform-opt" data-platform="TikTok"><span class="plat-icon">🎵</span>TikTok</button>
+              <button type="button" class="platform-opt" data-platform="LinkedIn"><span class="plat-icon">💼</span>LinkedIn</button>
+              <button type="button" class="platform-opt" data-platform="Facebook"><span class="plat-icon">📘</span>Facebook</button>
+            </div>
+          </div>
+
+        </div>
+
+        <div class="generate-cta">
+          <p>Once you've filled in your brand details, generate your personalised Claude prompt.</p>
+          <button class="nav-btn nav-btn-primary" onclick="generateAndGoToPrompt()">Generate My Prompt &rarr;</button>
+        </div>
+      </div>
+      <div class="tab-footer black-footer">
+        <button class="nav-btn nav-btn-secondary" onclick="goToTab(1)">&larr; Back</button>
+        <span class="step-indicator">Step 2 of 6</span>
+        <button class="nav-btn nav-btn-primary" onclick="generateAndGoToPrompt()">Next &rarr;</button>
+      </div>
+    </div>
+
+    <!-- ══════════════════════════════════════════════════ -->
+    <!-- TAB 3 — YOUR PROMPT                                -->
+    <!-- ══════════════════════════════════════════════════ -->
+    <div class="tab-panel panel-bg-dark" id="tab-3">
+      <div class="panel-body">
+        <span class="section-num">03</span>
+        <h2 class="section-title">Your Prompt</h2>
+
+        <p class="body-text">Your brand details have been filled in. Copy this prompt and paste it into Claude. Claude will visit the websites you listed and return <strong>two outputs</strong> — a complete brand strategy and a full brand visual identity system.</p>
+
+        <div class="prompt-warning" id="prompt-warning">
+          <strong>Some fields are empty.</strong> The prompt will still work, but the more detail you provide in Brand Inputs, the better the output. Go back and fill in the missing fields for best results.
+        </div>
+
+        <div class="prompt-header">
+          <div class="prompt-header-left">
+            <span class="prompt-badge">Claude Prompt</span>
+            <span class="prompt-title-text">Brand Strategy + Visual Direction</span>
+          </div>
+          <button class="copy-btn" id="copy-main-btn" onclick="copyMainPrompt()">Copy Prompt</button>
+        </div>
+
+        <button class="prompt-reveal-btn" id="reveal-main-btn" onclick="toggleMainPrompt()">Show Prompt</button>
+
+        <div class="prompt-box" id="main-prompt-box" style="display:none;">
+          <pre class="prompt-text" id="prompt-output"></pre>
+          <span class="prompt-footer-note">→ Open claude.ai, paste this prompt, and send</span>
+        </div>
+
+        <div class="after-prompt">
+          <span class="after-prompt-label">After Claude responds — save your two outputs</span>
+          <ol>
+            <li>
+              <span class="after-step-num">1</span>
+              <div>Copy everything under <strong>OUTPUT 1 — BRAND STRATEGY</strong> and save it to a new Google Doc.<br>
+              Name it: <span class="doc-name" id="doc-name-1">Brand Strategy — [BrandName]</span></div>
+            </li>
+            <li>
+              <span class="after-step-num">2</span>
+              <div>Copy everything under <strong>OUTPUT 2 — BRAND VISUAL IDENTITY SYSTEM</strong> and save it to a second Google Doc.<br>
+              Name it: <span class="doc-name" id="doc-name-2">Brand Visual Identity — [BrandName]</span><br>
+              <span style="font-size:12px;color:var(--gray-faint);margin-top:4px;display:block;">You'll reuse this document in later building blocks whenever you're creating graphics, ads, or any brand asset — keep it somewhere easy to find.</span></div>
+            </li>
+            <li>
+              <span class="after-step-num">3</span>
+              <div>Keep both docs open — you'll upload them to NotebookLM in the next tab.</div>
+            </li>
+          </ol>
+        </div>
+      </div>
+      <div class="tab-footer dark-footer">
+        <button class="nav-btn nav-btn-secondary" onclick="goToTab(2)">&larr; Edit Inputs</button>
+        <span class="step-indicator">Step 3 of 6</span>
+        <button class="nav-btn nav-btn-primary" onclick="goToTab(4)">Next: Build Deck &rarr;</button>
+      </div>
+    </div>
+
+    <!-- ══════════════════════════════════════════════════ -->
+    <!-- TAB 4 — BUILD DECK                                 -->
+    <!-- ══════════════════════════════════════════════════ -->
+    <div class="tab-panel panel-bg-black" id="tab-4">
+      <div class="panel-body">
+        <span class="section-num">04</span>
+        <h2 class="section-title">Build Your Deck</h2>
+
+        <p class="body-text">You'll upload your two Google Docs into NotebookLM as separate sources, then paste the deck prompt below. NotebookLM will draw from both the brand strategy and the visual identity system to generate a branded 10-page portfolio deck.</p>
+
+        <div class="instruction-steps">
+
+          <div class="instr-step">
+            <div class="instr-step-header">
+              <span class="instr-num">1</span>
+              <span class="instr-title">Save Your Claude Outputs as Google Docs</span>
+            </div>
+            <div class="instr-body">
+              <p>You should have two outputs from Claude. Save each one as its own Google Doc now.</p>
+              <ol>
+                <li>Go to <a href="https://docs.google.com" target="_blank">docs.google.com</a> and create a new document.</li>
+                <li>Paste your <strong>Output 1 — Brand Strategy</strong> text and name the doc: <span class="doc-name" id="deck-doc-name-1">Brand Strategy — [BrandName]</span></li>
+                <li>Create a second new Google Doc.</li>
+                <li>Paste your <strong>Output 2 — Brand Visual Identity System</strong> text and name it: <span class="doc-name" id="deck-doc-name-2">Brand Visual Identity — [BrandName]</span></li>
+                <li>Leave both docs open — you'll upload them next.</li>
+              </ol>
+            </div>
+          </div>
+
+          <div class="instr-step">
+            <div class="instr-step-header">
+              <span class="instr-num">2</span>
+              <span class="instr-title">Set Up Your NotebookLM Notebook</span>
+            </div>
+            <div class="instr-body">
+              <ol>
+                <li>Go to <a href="https://notebooklm.google.com" target="_blank">notebooklm.google.com</a> and create a new notebook.</li>
+                <li>Click <strong>Add source</strong> and upload: <span class="doc-name" id="deck-doc-name-3">Brand Strategy — [BrandName]</span></li>
+                <li>Click <strong>Add source</strong> again and upload: <span class="doc-name" id="deck-doc-name-4">Brand Visual Identity — [BrandName]</span></li>
+                <li>NotebookLM now has both documents as labelled sources. It will draw from both automatically when you generate the deck.</li>
+                <li>Look at the <strong>right-hand panel</strong>. You'll see a section called <strong>Slide deck</strong> — click on it to open the slide deck generator. This is where you'll paste the prompt in the next step.</li>
+              </ol>
+            </div>
+          </div>
+
+          <div class="instr-step">
+            <div class="instr-step-header">
+              <span class="instr-num">3</span>
+              <span class="instr-title">Generate Your Deck</span>
+            </div>
+            <div class="instr-body">
+              <p>Copy the prompt below and paste it into the <strong>Slide deck panel</strong> on the right — not into the main chat. Your brand name, your name, and the platform have been filled in automatically.</p>
+              <p style="margin-top:10px;">Once you send the prompt, <strong>wait</strong> — NotebookLM takes a moment to generate. When it's done, the completed presentation will appear.</p>
+            </div>
+            <br>
+            <div class="prompt-header">
+              <div class="prompt-header-left">
+                <span class="prompt-badge">NotebookLM Prompt</span>
+                <span class="prompt-title-text">10-Page Deck Generator</span>
+              </div>
+              <button class="copy-btn" id="copy-deck-btn" onclick="copyDeckPrompt()">Copy Prompt</button>
+            </div>
+
+            <button class="prompt-reveal-btn" id="reveal-deck-btn" onclick="toggleDeckPrompt()">Show Prompt</button>
+
+            <div class="prompt-box" id="deck-prompt-box" style="display:none;margin-bottom:0;">
+              <pre class="prompt-text" id="deck-prompt-output"></pre>
+              <span class="prompt-footer-note">→ Paste into the Slide deck panel on the right — not into the main chat</span>
+            </div>
+          </div>
+
+          <div class="instr-step">
+            <div class="instr-step-header">
+              <span class="instr-num">4</span>
+              <span class="instr-title">Review and Revise Before Exporting</span>
+            </div>
+            <div class="instr-body">
+              <p>Before you export, you can make changes to the deck directly inside NotebookLM — no need to go to Canva for text edits or layout tweaks.</p>
+              <ol>
+                <li>Click on the generated presentation to open it in a side panel.</li>
+                <li>Look for the <strong>pencil icon</strong> labelled <strong>Revise</strong>.</li>
+                <li>Click it and type in any changes you want — you can batch multiple revisions together in one go. For example: <em>"Make the heading on Page 3 shorter. Change the background on Page 5 to match the accent color. Rewrite the Next Steps on Page 10 to be more action-oriented."</em></li>
+                <li>Submit your revisions and NotebookLM will regenerate the updated deck.</li>
+                <li>Repeat until you're happy with the result, then export.</li>
+              </ol>
+              <div class="tip-note">Do your revisions in bulk — one round of changes is faster than revising one slide at a time.</div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+      <div class="tab-footer black-footer">
+        <button class="nav-btn nav-btn-secondary" onclick="goToTab(3)">&larr; Back</button>
+        <span class="step-indicator">Step 4 of 6</span>
+        <button class="nav-btn nav-btn-primary" onclick="goToTab(5)">Next: Refine &rarr;</button>
+      </div>
+    </div>
+
+    <!-- ══════════════════════════════════════════════════ -->
+    <!-- TAB 5 — REFINE                                     -->
+    <!-- ══════════════════════════════════════════════════ -->
+    <div class="tab-panel panel-bg-dark" id="tab-5">
+      <div class="panel-body">
+        <span class="section-num">05</span>
+        <h2 class="section-title">Refine Your Deck</h2>
+
+        <p class="body-text">Once NotebookLM has generated your deck, you have two options for refining it — depending on whether you have a Canva Pro account.</p>
+
+        <div class="option-blocks">
+
+          <!-- Option A -->
+          <div class="option-block">
+            <div class="option-header">
+              <span class="option-badge free">No Paid Tools Required</span>
+              <span class="option-title">Option A — Refine in NotebookLM</span>
+            </div>
+            <div class="option-body">
+              <p>If you don't have Canva Pro, you can make changes without leaving NotebookLM. This approach is more manual but works with any account.</p>
+
+              <span class="sub-step-title">To edit text or restructure a slide</span>
+              <p>Go back into the NotebookLM chat and ask it to revise specific pages. For example: <em>"Rewrite Page 5 — the content pillar description is too long. Make it shorter and punchier."</em> You can ask it to regenerate individual pages without redoing the whole deck.</p>
+
+              <span class="sub-step-title">To add images</span>
+              <p>Find the image you want to use — a product photo, a brand asset, a screenshot from the client's website — and upload it into NotebookLM as an additional source. Then prompt NotebookLM: <em>"Using the image I've added, update Page [X] to include this image as the main visual on that slide."</em></p>
+            </div>
+          </div>
+
+          <!-- Option B -->
+          <div class="option-block">
+            <div class="option-header">
+              <span class="option-badge pro">Canva Pro Required</span>
+              <span class="option-title">Option B — Refine in Canva with Magic Layers</span>
+            </div>
+            <div class="option-body">
+              <div class="pro-note">
+                <strong>Magic Layers is a Canva Pro feature — it is not available on the free plan.</strong> As a social media manager, a Canva Pro account is a core professional tool you'll use constantly. If you don't have it yet, this is a good time to get it.
+              </div>
+              <p>Magic Layers lets you drop a finished slide image into Canva and automatically separate it into individual editable elements — text, background, shapes, images — so you can edit each one independently. This is the fastest way to customise the NotebookLM deck with real client assets.</p>
+
+              <ul>
+                <li>
+                  <span class="li-num">1</span>
+                  <div><strong>Export your slides from NotebookLM.</strong> Download or screenshot each slide as a PNG. Save them as <code>slide_01.png</code> through <code>slide_10.png</code>.</div>
+                </li>
+                <li>
+                  <span class="li-num">2</span>
+                  <div><strong>Set up your Canva presentation.</strong> Go to canva.com, click Create a design, search for Presentation, and select the <strong>1920 × 1080px</strong> widescreen format. Add 10 slides — one for each image.</div>
+                </li>
+                <li>
+                  <span class="li-num">3</span>
+                  <div><strong>Import and separate layers with Magic Layers.</strong> For each slide: upload the PNG via Uploads → Upload files. Drag it onto the canvas and fill the frame. Then select the image and click <strong>Edit Image → Magic Layers</strong>. Canva will separate the image into editable layers — text blocks, shapes, background, photos. Click any text layer to rewrite it. Click any image layer to swap or delete it.
+                    <div class="tip-note">Magic Layers works best on slides with clearly defined elements. If a slide is very dense, start with the simpler elements first.</div>
+                  </div>
+                </li>
+                <li>
+                  <span class="li-num">4</span>
+                  <div><strong>Add client product or service images.</strong> Go to the client's website and screenshot or save the product image you want. Upload it to Canva via Uploads → Upload files. Click the image and go to <strong>Edit Image → Background Remover</strong> — Canva will isolate the product. Drag the cleaned image onto the slide and position it to replace the placeholder.
+                    <div class="tip-note">For better resolution: right-click the image on the client's website and select "Save image as" rather than screenshotting.</div>
+                  </div>
+                </li>
+                <li>
+                  <span class="li-num">5</span>
+                  <div><strong>Final polish and export.</strong> Review all 10 slides for consistency. When you're done, click Share → Download. Choose <strong>PDF Print</strong> for a high-res single file, or <strong>PNG</strong> for individual slide images.</div>
+                </li>
+              </ul>
+            </div>
+          </div>
+
+        </div>
+      </div>
+      <div class="tab-footer dark-footer">
+        <button class="nav-btn nav-btn-secondary" onclick="goToTab(4)">&larr; Back</button>
+        <span class="step-indicator">Step 5 of 6</span>
+        <button class="nav-btn nav-btn-primary" onclick="goToTab(6)">Next: Wrap Up &rarr;</button>
+      </div>
+    </div>
+
+    <!-- ══════════════════════════════════════════════════ -->
+    <!-- TAB 6 — WRAP UP                                    -->
+    <!-- ══════════════════════════════════════════════════ -->
+    <div class="tab-panel panel-bg-lime" id="tab-6">
+      <div class="panel-body">
+        <span class="deliverable-label">Section 06 — Final Deliverable</span>
+        <h2 class="deliverable-title">You're Done<br>When...</h2>
+
+        <ul class="wrap-checklist" id="wrap-checklist">
+          <li>
+            <label>
+              <input type="checkbox" onchange="checkWrapList()">
+              <span class="wrap-check-text">Your brand strategy and brand visual identity system have been generated by Claude.</span>
+            </label>
+          </li>
+          <li>
+            <label>
+              <input type="checkbox" onchange="checkWrapList()">
+              <span class="wrap-check-text">You've saved both Claude outputs as separate, labelled Google Docs.</span>
+            </label>
+          </li>
+          <li>
+            <label>
+              <input type="checkbox" onchange="checkWrapList()">
+              <span class="wrap-check-text">You've built a 10-page deck in NotebookLM using both documents as sources.</span>
+            </label>
+          </li>
+          <li>
+            <label>
+              <input type="checkbox" onchange="checkWrapList()">
+              <span class="wrap-check-text">You've refined the deck — either in NotebookLM or in Canva — and it looks portfolio-ready.</span>
+            </label>
+          </li>
+          <li>
+            <label>
+              <input type="checkbox" onchange="checkWrapList()">
+              <span class="wrap-check-text">You've exported and saved the final deck as: <span class="save-filename-inline" id="save-filename-inline">[BrandName]_Brand_Strategy_Deck</span></span>
+            </label>
+          </li>
+        </ul>
+
+        <!-- Celebration — shown when all items checked -->
+        <div class="celebration" id="celebration">
+          <div class="celebration-inner">
+            <h3 class="celebration-title">Building Block 1: Complete.</h3>
+            <p class="celebration-msg">
+              You started with a blank brief and came out the other side with a <strong>real brand strategy</strong>, a <strong>branded 10-page deck</strong>, and your name on professional work. That's not just a portfolio piece — that's proof you can use AI to do what used to take a week in an afternoon. <strong>On to Building Block 2.</strong>
+            </p>
+          </div>
+        </div>
+
+        <p class="deliverable-next">
+          <strong>What's next:</strong> This brand strategy feeds directly into Building Block 2 (Content Calendar) and Building Block 3 (Social Media Graphics). Keep your Google Docs accessible — you'll reference this strategy in every building block that follows.
+        </p>
+      </div>
+      <div class="tab-footer lime-footer">
+        <button class="nav-btn nav-btn-dark-secondary" onclick="goToTab(5)">&larr; Back</button>
+        <span class="step-indicator dark-indicator">Step 6 of 6</span>
+        <button class="nav-btn nav-btn-dark-primary" onclick="goToTab(1)">Start Over</button>
+      </div>
+    </div>
+
+  </div><!-- /tab-panels -->
+
+  <script>
+    /* ─── Tab Switching ─────────────────────────────────── */
+    function goToTab(n) {
+      document.querySelectorAll('.tab-btn').forEach(btn => {
+        const active = parseInt(btn.dataset.tab) === n;
+        btn.classList.toggle('active', active);
+        btn.setAttribute('aria-selected', active);
+      });
+      document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
+      const target = document.getElementById('tab-' + n);
+      if (target) {
+        target.classList.add('active');
+        requestAnimationFrame(() => {
+        window.scrollTo({ top: document.querySelector('.tabs-wrapper').offsetTop, behavior: 'smooth' });
+      });
+      }
+      if (n === 3) { buildMainPrompt(); updateDocNames(); }
+      if (n === 4) { buildDeckPrompt(); updateDeckDocNames(); }
+      if (n === 6) { updateSaveFilename(); }
+    }
+
+    /* ─── Industry Chips (single select) ────────────────── */
+    document.querySelectorAll('.industry-chip').forEach(chip => {
+      chip.addEventListener('click', () => {
+        document.querySelectorAll('.industry-chip').forEach(c => c.classList.remove('selected'));
+        chip.classList.add('selected');
+        const otherWrap = document.getElementById('industry-other-wrap');
+        if (chip.dataset.industry === 'other') {
+          otherWrap.classList.add('visible');
+          document.getElementById('f-industry-other').focus();
+        } else {
+          otherWrap.classList.remove('visible');
+        }
+      });
+    });
+
+    function getIndustry() {
+      const chip = document.querySelector('.industry-chip.selected');
+      if (!chip) return '';
+      if (chip.dataset.industry === 'other') {
+        return document.getElementById('f-industry-other').value.trim();
+      }
+      return chip.dataset.industry;
+    }
+
+    /* ─── Tone Chips (multi, max 3) ─────────────────────── */
+    document.querySelectorAll('.tone-chip').forEach(chip => {
+      chip.addEventListener('click', () => {
+        if (chip.classList.contains('selected')) {
+          chip.classList.remove('selected');
+        } else if (document.querySelectorAll('.tone-chip.selected').length < 3) {
+          chip.classList.add('selected');
+        }
+        updateToneHint();
+      });
+    });
+
+    function updateToneHint() {
+      const selected = document.querySelectorAll('.tone-chip.selected');
+      const hint = document.getElementById('tone-hint');
+      if (!selected.length) { hint.textContent = 'Select 2–3 tones above'; return; }
+      hint.textContent = 'Selected: ' + Array.from(selected).map(c => c.dataset.tone).join(', ');
+    }
+
+    function getSelectedTones() {
+      return Array.from(document.querySelectorAll('.tone-chip.selected')).map(c => c.dataset.tone).join(', ');
+    }
+
+    /* ─── Platform (single select) ──────────────────────── */
+    document.querySelectorAll('.platform-opt').forEach(opt => {
+      opt.addEventListener('click', () => {
+        document.querySelectorAll('.platform-opt').forEach(o => o.classList.remove('selected'));
+        opt.classList.add('selected');
+      });
+    });
+
+    function getSelectedPlatform() {
+      const opt = document.querySelector('.platform-opt.selected');
+      return opt ? opt.dataset.platform : '';
+    }
+
+    /* ─── Read All Inputs ───────────────────────────────── */
+    function getInputs() {
+      return {
+        yourName:  document.getElementById('f-your-name').value.trim(),
+        name:      document.getElementById('f-name').value.trim(),
+        website:   document.getElementById('f-website').value.trim(),
+        industry:  getIndustry(),
+        offer:     document.getElementById('f-offer').value.trim(),
+        audience:  document.getElementById('f-audience').value.trim(),
+        before:    document.getElementById('f-before').value.trim(),
+        after:     document.getElementById('f-after').value.trim(),
+        tone:      getSelectedTones(),
+        comp1:     document.getElementById('f-comp1').value.trim(),
+        comp2:     document.getElementById('f-comp2').value.trim(),
+        comp3:     document.getElementById('f-comp3').value.trim(),
+        platform:  getSelectedPlatform(),
+      };
+    }
+
+    function v(val, fallback) { return val && val.length ? val : fallback; }
+
+    /* ─── Build Main Claude Prompt ──────────────────────── */
+    function buildMainPrompt() {
+      const d = getInputs();
+      const hasEmpty = !d.name || !d.industry || !d.offer || !d.audience || !d.before || !d.after || !d.tone || !d.platform;
+      document.getElementById('prompt-warning').classList.toggle('visible', hasEmpty);
+
+      const compUrls = [d.comp1, d.comp2, d.comp3].filter(Boolean).join(', ') || '[no competitor URLs provided]';
+
+      const text =
+`You are a social media brand strategist, visual brand consultant, and consumer psychology expert. I need you to create a social media brand strategy for the brand described below, plus a complete brand visual identity system.
+
+Before writing anything, visit the brand's website (if provided) and each competitor URL listed. Use what you find — their messaging, tone, content approach, visual identity, and positioning — to make this strategy more accurate and differentiated.
+
+Then produce two outputs:
+
+---
+
+OUTPUT 1 — BRAND STRATEGY
+
+1. WHY — Brand Foundation
+Why does this brand exist? Define the brand's core values, mission, and positioning in the market.
+
+Answer all four positioning questions — do not skip any:
+1. Who is it for, precisely? Not a broad demographic. A specific person with a specific situation, worldview, and frustration. The narrower this is, the stronger the positioning.
+2. What category does it compete in? What does the customer compare it to when making a decision? Consider whether the brand can reframe the category itself — this is one of the most powerful positioning moves available.
+3. What is the single most important point of difference? Not a list. One thing. The thing this brand can own that no competitor has claimed or can credibly claim.
+4. Why should anyone believe it? The reason-to-believe (RTB) — what evidence, mechanism, credential, or proof makes the point of difference credible rather than just claimed?
+
+Then write a positioning statement using this formula:
+For [specific target audience] who [have this specific problem or desire], [brand name] is the [category frame] that [point of difference] because [reason to believe].
+
+The positioning statement is internal — it is not ad copy. It is a compass for every creative decision. If a piece of content doesn't serve the stated audience or reinforce the stated difference, it shouldn't exist.
+
+Finally, identify the competitive whitespace this brand should occupy. Look for:
+- Under-served audiences: who does the category serve badly? Who feels ignored, patronised, or over-served with things they don't need?
+- Overclaimed territory: what do all competitors say? ("premium", "innovative", "community") — this is territory to avoid. The space between clichés is where brands stand out.
+- Rejected category assumptions: what does every brand in this space take for granted? Rejecting one assumption is often where the strongest positioning lives.
+
+2. WHO — Target Audience
+Who is this brand speaking to? Build a five-layer audience profile:
+
+Layer 1 — Demographics (the container): Age range, location, gender if relevant, income bracket, occupation, life stage. Necessary but insufficient — do not stop here.
+Layer 2 — Psychographics (the worldview): What do they believe about themselves? What do they believe about the world? What kind of person do they aspire to be? What do they read, watch, listen to? What communities do they belong to?
+Layer 3 — The problem (in their words): What specific frustration, desire, or fear is this brand addressing? Not your version of their problem — their version. How do they describe it to a friend at 11pm? What language do they actually use? Where do they express it?
+Layer 4 — The awareness stage (where they are now): Are they unaware they have a problem? Problem-aware but solution-unaware? Already evaluating options? This determines what kind of content reaches them and what it needs to say.
+Layer 5 — The transformation (where they want to go): What does life look like on the other side of buying? Not just the functional outcome — the identity shift. Frame it as: "I want to go from feeling like [X] to feeling like someone who [Y]."
+
+Then create a primary persona and a secondary persona. Name them. Give each a job, a daily schedule, a specific anxiety, and a specific aspiration. The name and story are not decoration — they force specificity and make every content decision testable: "would [persona name] actually care about this?"
+
+Then provide Tone of Voice & Personality guidelines — 3–5 bullet points describing how this brand should sound, written in the language this audience actually uses. Include a "do this / not this" example for each. Reference competitor tone to show contrast.
+
+3. WHAT — Content Themes & Formats
+What content does this brand post? Provide 3–5 content themes — these are recurring topic buckets the brand rotates through to generate consistent content ideas that speak directly to the target audience. These are not awareness stages or buyer journey phases — they are subject areas the brand owns.
+For each theme, provide:
+- A theme name
+- A one-line description
+- 2 example post ideas specific to the platform and clearly differentiated from competitors
+
+Then outline a content format rotation strategy — explain how the brand should cycle through formats (Reels, carousels, static posts, Stories, etc.) to keep the feed dynamic and algorithm-friendly.
+
+4. WHEN — Sample Content Calendar
+When does this brand post? Provide a two-week sample content calendar (Monday–Friday) in table format. Each entry should include:
+- The content idea/topic
+- The content pillar it falls under
+- The post format (Reel, carousel, static, Story, etc.)
+
+---
+
+OUTPUT 2 — BRAND VISUAL IDENTITY SYSTEM
+
+This is not a slide theme. This is the complete visual identity system for the brand — a reference document that should be consulted every time a social media graphic, story, ad, deck, or any brand asset is created. Every decision here must be directly grounded in and justified by the brand strategy in Output 1. Do not produce generic visual recommendations. The colours, typography, imagery, and layout choices should feel like a logical, inevitable extension of the brand's positioning, audience psychology, and transformation promise.
+
+---
+
+SECTION A — BRAND COLOUR PALETTE
+
+Grounded in the audience's psychology and the brand's transformation promise from Output 1, define the full working colour system:
+
+- Primary Colour: the dominant brand colour. Give the hex code, a name for it, and a 1–2 sentence explanation of why this colour is right for this specific audience and positioning — reference the psychographics and transformation.
+- Secondary Colour: a supporting colour that complements the primary. Same format.
+- Accent Colour: one high-contrast colour used sparingly for calls to action, highlights, and moments of emphasis. Same format.
+- Neutral(s): 1–2 background and text neutrals — describe when to use each.
+- What to avoid: name 1–2 colour directions this brand should never go near, and explain why they would undermine the positioning.
+
+---
+
+SECTION B — TYPOGRAPHY SYSTEM
+
+Define the complete type system for all brand touchpoints — social media graphics, Stories, carousels, presentation decks, and any other assets:
+
+- Display / Headline Font: the font used for big statements, cover slides, hero graphics, and carousel title frames. Name a specific Google Font. Describe the visual character. Explain why it fits this brand's tone and audience.
+- Body / Supporting Font: the font used for body copy, supporting text, and captions in graphics. Name a specific Google Font. Describe when and how to use it.
+- Accent / Detail Font: optional — a third font used sparingly for labels, callouts, or decorative text. If not needed, say so and explain why.
+- Type Hierarchy Rules: describe how headline, subheadline, body, and label text should relate to each other in size and weight. Give a concrete example using the brand name and a sample headline.
+- Type Personality: one sentence capturing the overall typographic mood.
+
+---
+
+SECTION C — IMAGERY & VISUAL CONTENT DIRECTION
+
+What this brand looks like in every visual context — informed by the audience's aspirations, lifestyle, and the transformation they're buying into:
+
+- Photography Style: describe the specific visual feel of photos this brand uses. Reference lighting, colour temperature, setting, subject matter, and emotional register. Be specific enough that someone could brief a photographer or find matching stock images.
+- What the Subject Looks Like: describe the people, settings, or objects that should appear in imagery — tied directly to the primary persona from Output 1.
+- Illustration / Graphic Style: if this brand uses flat graphics, icons, patterns, or illustrative elements — describe the style. If photography-first, say so.
+- Textures & Overlays: describe any background textures, grain, gradients, or overlays — or explicitly state "clean and flat, no texture" if that fits the brand.
+- Imagery to Avoid: name 1–2 visual directions that would feel off-brand, and briefly explain why they conflict with the positioning or audience psychology.
+
+---
+
+SECTION D — LAYOUT & COMPOSITION PRINCIPLES
+
+How space, structure, and visual weight are used across all brand assets:
+
+- Spatial Style: describe the overall approach to layout.
+- Grid & Alignment: describe how elements are organised — centred, asymmetric, edge-to-edge, structured columns.
+- Graphic Elements: describe any recurring design motifs — lines, frames, dividers, shapes, logo lock-ups, or brand marks — and how they're used.
+- Social Media Format Notes: give brief layout guidance specific to the primary platform listed in the brand details.
+
+---
+
+SECTION E — OVERALL VISUAL IDENTITY STATEMENT
+
+Write one paragraph (4–6 sentences) that captures the complete visual world of this brand. This should read like a creative brief — specific enough that a designer who has never met the client could open it and immediately understand the aesthetic direction. Reference the audience, the transformation, and the positioning from Output 1. End with a single "visual identity tagline" — one punchy sentence that names the aesthetic (e.g., "Premium and editorial — like a luxury magazine that actually talks to real people." or "Raw and grounded — like a fitness brand that trains in the real world, not a glossy ad.").
+
+---
+
+SECTION F — APPLICATION TO THE PORTFOLIO DECK
+
+Using everything defined above, describe how this visual identity should be applied specifically to the 10-page portfolio deck that will be built in NotebookLM. Include:
+
+- Slide background treatment (colour, texture, or gradient — reference Section A and C)
+- Headline and body type treatment per slide (reference Section B)
+- Imagery placement and style for slides that include visuals (reference Section C)
+- Any slide-specific layout notes for the cover, content theme slides, and the calendar slide
+
+---
+
+Brand Details:
+- Business Name: ${v(d.name, '[business name]')}
+- Website: ${v(d.website, 'none provided')}
+- Industry: ${v(d.industry, '[industry / niche]')}
+- Offer: ${v(d.offer, '[what they sell]')}
+- Target Audience: ${v(d.audience, '[who they help]')}
+- Before (The Problem): ${v(d.before, '[before — the problem]')}
+- After (The Transformation): ${v(d.after, '[after — the transformation]')}
+- Tone: ${v(d.tone, '[tone of voice]')}
+- Competitor URLs: ${compUrls}
+- Platform: ${v(d.platform, '[primary platform]')}
+
+Write in a professional but approachable tone. Keep the strategy practical and actionable. Keep the visual identity system specific and opinionated — every recommendation should be grounded in the brand strategy, the audience psychology, and the transformation promise. Never give vague or generic visual options. If you can't justify a visual choice by referencing something in the brand strategy, it doesn't belong here.`;
+
+      document.getElementById('prompt-output').textContent = text;
+    }
+
+    /* ─── Update Doc Name Labels (Tab 3) ────────────────── */
+    function updateDocNames() {
+      const name = document.getElementById('f-name').value.trim() || '[BrandName]';
+      document.getElementById('doc-name-1').textContent = `Brand Strategy — ${name}`;
+      document.getElementById('doc-name-2').textContent = `Brand Visual Identity — ${name}`;
+    }
+
+    /* ─── Build NotebookLM Deck Prompt ──────────────────── */
+    function buildDeckPrompt() {
+      const d = getInputs();
+      const yourName = d.yourName || 'Your Name';
+      const brandName = d.name || '[BrandName]';
+
+      const text =
+`Using the brand strategy and brand visual identity system I've provided as your sources, create a structured 10-page presentation deck for my portfolio. The visual identity document contains a complete colour palette, typography system, imagery direction, layout principles, and a deck-specific application guide in Section F — use all of it. Every slide should feel like a cohesive expression of the brand, not a generic template.
+
+Page 1 — Cover
+Headline: ${brandName} + tagline
+Subheading: "Social Media Brand Strategy by ${yourName}"
+Design note: apply the primary background colour and display font from the visual identity. Brand name in the accent colour. Bold, minimal, and immediately on-brand.
+
+Page 2 — Brand Foundation (WHY)
+Content: the four positioning questions answered, the positioning statement, and the competitive whitespace
+Design note: lead with the positioning statement as the dominant typographic element. Supporting content (positioning questions, whitespace) in a structured two-column layout using the body font and secondary colour.
+
+Page 3 — Target Audience (WHO)
+Content: the five-layer audience profile — lead with psychographics and the transformation, supported by demographics, awareness stage, and the primary persona
+Design note: open with a large typographic pull-quote using the persona's voice (their version of the problem, Layer 3). Remaining layers as tight supporting copy below. Persona name and descriptor as a styled label using the accent colour.
+
+Page 4 — Tone & Voice
+Content: the tone of voice guidelines — do/don't pairs as a clean list
+Design note: each guideline as its own row. Accent colour for the "do" side, a muted neutral for the "don't" side. Typography should itself demonstrate the brand's tone — if the brand is bold, make this slide bold.
+
+Page 5 — Content Theme 1
+Content: theme name, one-line description, 2 example post ideas
+Design note: theme name as a large display headline in the primary or accent colour. Examples as indented supporting copy. Background from the visual identity's slide treatment.
+
+Page 6 — Content Theme 2
+Same structure as Page 5
+
+Page 7 — Content Theme 3 (expand to Pages 8 and 9 if the strategy includes 4–5 themes, one theme per slide)
+Same structure as Page 5
+
+Page 8 — Content Formats & Rotation (WHAT continued)
+Content: the format rotation strategy — how the brand cycles through Reels, carousels, static posts, Stories, etc.
+Design note: each format as its own row with a short note on when and why to use it. Use the accent colour for format labels. Layout should feel like a quick-reference guide — structured and scannable.
+
+Page 9 — Sample Content Calendar (WHEN)
+Content: Extract the two-week Monday–Friday content calendar directly from the source material and display it as a structured table with four columns: Day, Content Idea, Content Theme, and Format. Pull all row data exactly as they appear in the source — do not invent or infer any values.
+Design note: alternate row shading using the brand's neutral and secondary colours. Theme names as colour-coded pill labels matching the theme slides. Table is the dominant element on the slide with a short branded header above it.
+
+Page 10 — Next Steps
+Content: the top 3 actions the social media manager should take first to bring this strategy to life
+Design note: numbered list, each item opens with a bold action verb in the accent colour. Closing line at the bottom: "Built with AI. Designed for results."
+
+For each page, write the full slide content AND describe exactly what the background, layout, typography, and visual elements should look like — referencing specific colours, fonts, and layout rules from the visual identity document. The visual identity is your style guide. Apply it consistently across all 10 pages.`;
+
+      document.getElementById('deck-prompt-output').textContent = text;
+    }
+
+    /* ─── Update Doc Names (Tab 4) ──────────────────────── */
+    function updateDeckDocNames() {
+      const name = document.getElementById('f-name').value.trim() || '[BrandName]';
+      document.getElementById('deck-doc-name-1').textContent = `Brand Strategy — ${name}`;
+      document.getElementById('deck-doc-name-2').textContent = `Brand Visual Identity — ${name}`;
+      document.getElementById('deck-doc-name-3').textContent = `Brand Strategy — ${name}`;
+      document.getElementById('deck-doc-name-4').textContent = `Brand Visual Identity — ${name}`;
+    }
+
+    /* ─── Prompt Reveal Toggles ─────────────────────────── */
+    function toggleMainPrompt() {
+      const box = document.getElementById('main-prompt-box');
+      const btn = document.getElementById('reveal-main-btn');
+      const visible = box.style.display !== 'none';
+      box.style.display = visible ? 'none' : 'block';
+      btn.textContent = visible ? 'Show Prompt' : 'Hide Prompt';
+    }
+
+    function toggleDeckPrompt() {
+      const box = document.getElementById('deck-prompt-box');
+      const btn = document.getElementById('reveal-deck-btn');
+      const visible = box.style.display !== 'none';
+      box.style.display = visible ? 'none' : 'block';
+      btn.textContent = visible ? 'Show Prompt' : 'Hide Prompt';
+    }
+
+    /* ─── Generate & Navigate ───────────────────────────── */
+    function generateAndGoToPrompt() { goToTab(3); }
+
+    /* ─── Copy Functions ────────────────────────────────── */
+    function copyMainPrompt() {
+      const text = document.getElementById('prompt-output').textContent;
+      navigator.clipboard.writeText(text).then(() => {
+        const btn = document.getElementById('copy-main-btn');
+        btn.textContent = 'Copied!';
+        setTimeout(() => { btn.textContent = 'Copy Prompt'; }, 2000);
+      });
+    }
+
+    function copyDeckPrompt() {
+      const text = document.getElementById('deck-prompt-output').textContent;
+      navigator.clipboard.writeText(text).then(() => {
+        const btn = document.getElementById('copy-deck-btn');
+        btn.textContent = 'Copied!';
+        setTimeout(() => { btn.textContent = 'Copy Prompt'; }, 2000);
+      });
+    }
+
+    /* ─── Save Filename ─────────────────────────────────── */
+    function updateSaveFilename() {
+      const name = document.getElementById('f-name').value.trim();
+      const slug = name ? `${name.replace(/\s+/g, '_')}_Brand_Strategy_Deck` : '[BrandName]_Brand_Strategy_Deck';
+      const inline = document.getElementById('save-filename-inline');
+      if (inline) inline.textContent = slug;
+    }
+
+    /* ─── Wrap-Up Checklist + Celebration ───────────────── */
+    function checkWrapList() {
+      const boxes   = document.querySelectorAll('#wrap-checklist input[type="checkbox"]');
+      const checked = document.querySelectorAll('#wrap-checklist input[type="checkbox"]:checked');
+      if (checked.length === boxes.length) showCelebration();
+    }
+
+    function showCelebration() {
+      const cel = document.getElementById('celebration');
+      if (cel.style.display === 'block') return;
+      cel.style.display = 'block';
+      spawnConfetti();
+      setTimeout(() => cel.scrollIntoView({ behavior: 'smooth', block: 'center' }), 100);
+    }
+
+    function spawnConfetti() {
+      const container = document.getElementById('page-confetti');
+      container.innerHTML = '';
+      const colors = ['#D4FF00', '#FFFFFF', '#E8FF80', '#AAAAAA', '#555555'];
+      const shapes = ['0', '50%', '2px'];
+      for (let i = 0; i < 120; i++) {
+        const el = document.createElement('div');
+        el.className = 'confetti-piece';
+        const size = (Math.random() * 8 + 4) + 'px';
+        el.style.cssText = `
+          left: ${Math.random() * 100}%;
+          width: ${size}; height: ${size};
+          background: ${colors[Math.floor(Math.random() * colors.length)]};
+          border-radius: ${shapes[Math.floor(Math.random() * shapes.length)]};
+          animation-duration: ${(Math.random() * 2.5 + 2).toFixed(2)}s;
+          animation-delay: ${(Math.random() * 1.4).toFixed(2)}s;
+        `;
+        container.appendChild(el);
+      }
+      setTimeout(() => { container.innerHTML = ''; }, 5000);
+    }
+
+    /* ─── Init ──────────────────────────────────────────── */
+    buildMainPrompt();
+    buildDeckPrompt();
+  </script>
+
+</body>
+</html>
