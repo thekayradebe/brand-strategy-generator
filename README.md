@@ -13,16 +13,20 @@ step, no dependencies. The only external thing it loads is Google Fonts.
 
 ## Where the original content lives
 
-`index.html` was generated from markdown lesson files. Copies of those sources are
-kept here in `source/` for reference.
+`index.html` was built from the lesson markdown. A copy of that source is kept here
+in `source/01-brand-strategy.md` for reference. The HTML reworks some section titles
+and adds a "Refine Your Deck" section, so the two are close but not identical.
 
-The **canonical** copies — the ones the content pipeline regenerates the HTML from —
-live outside this repo at:
+The **canonical** copy — the one the content pipeline works from — lives outside this
+repo at:
 
 ```
 ~/Documents/Other/portfolio-challenges/content/smm/01-brand-strategy.md
-~/Documents/Other/portfolio-challenges/content/smm/01-brand-strategy-sales-page.md
 ```
+
+There is also a sales page draft alongside it in that folder
+(`01-brand-strategy-sales-page.md`). It is deliberately **not** kept in this repo —
+this repo is public, and everything in it is readable on the web.
 
 If you regenerate the page from that pipeline, the output lands at
 `~/Documents/Other/portfolio-challenges/output/smm/01-brand-strategy.html`.
